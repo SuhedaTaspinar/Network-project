@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terrorist Attacks Map</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://unpkg.com/keplergl@^3.0.2/umd/keplergl.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .map-container, .categories-container {
+            width: 80%;
+            margin: 20px 0;
+        }
+        .map {
+            width: 100%;
+            height: 80vh;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Terrorist Attacks Visualizations</h1>
+        <div class="map-container">
+            <h2>Top 100 Largest Terrorist Attacks</h2>
+            <div id="top-100-map" class="map"></div>
+        </div>
+        <div class="map-container">
+            <h2>Top 100 Most Attacked Regions</h2>
+            <div id="most-attacked-map" class="map"></div>
+        </div>
+        <div class="map-container">
+            <h2>Network of Related Attacks</h2>
+            <div id="network-map" class="map"></div>
+        </div>
+    </div>
+
+    <script>
+        // Plotly haritaları
+        var top_100_map_data = {{ top_100_json|safe }};
+        var most_attacked_map_data = {{ most_attacked_json|safe }};
+        var network_map_data = {{ network_json|safe }};
+
+        Plotly.newPlot('top-100-map', top_100_map_data.data, top_100_map_data.layout);
+        Plotly.newPlot('most-attacked-map', most_attacked_map_data.data, most_attacked_map_data.layout);
+        Plotly.newPlot('network-map', network_map_data.data, network_map_data.layout);
+
+        // Kepler.gl haritaları
+        var top_100_kepler_map = {{ top_100_kepler_map|safe }};
+        var most_attacked_kepler_map = {{ most_attacked_kepler_map|safe }};
+        var related_kepler_map = {{ related_kepler_map|safe }};
+    </script>
+</body>
+</html>

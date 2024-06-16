@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terrorist Attacks Analysis</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'analysis/css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Terrorist Attacks Analysis</h1>
+    <div>
+        <canvas id="attacksChart"></canvas>
+    </div>
+    <div>
+        <iframe src="{% static 'analysis/terrorist_attacks_map.html' %}" width="100%" height="600px"></iframe>
+    </div>
+    <script>
+        const attacksData = {{ attacks_per_year|safe }};
+        const ctx = document.getElementById('attacksChart').getContext('2d');
+        const labels = Object.keys(attacksData);
+        const data = Object.values(attacksData);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Attacks per Year',
+                    data: data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Attacks'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

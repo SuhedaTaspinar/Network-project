@@ -29,7 +29,7 @@ def terrorist_attacks_map(request):
     most_attacked_kepler_map = create_most_attacked_regions_kepler_map(file_path)
     related_kepler_map = create_related_attacks_kepler_map(file_path)
 
-    return render(request, '../network/templates/analysis/terrorist_attacks_map.html', {
+    return render(request, 'analysis/terrorist_attacks_map.html', {
         'top_100_json': top_100_json,
         'most_attacked_json': most_attacked_json,
         'network_json': network_json,
@@ -37,6 +37,7 @@ def terrorist_attacks_map(request):
         'most_attacked_kepler_map': most_attacked_kepler_map,
         'related_kepler_map': related_kepler_map
     })
+
 
 def network_graph(request):
     return render(request, '../network/templates/analysis/network_graph.html')
